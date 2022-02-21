@@ -1,8 +1,23 @@
 {
-    "extends": [
-        "./node_modules/ts-standard/eslintrc.json"
-    ],
-    "parserOptions": {
-        "project": "./tsconfig.json"
-    }
+  "extends": [
+    "./node_modules/ts-standard/eslintrc.json"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/strict-boolean-expressions": [
+      "error",
+      {
+        "allowString": true,
+        "allowNumber": true,
+        "allowNullableObject": true,
+        "allowNullableBoolean": false,
+        "allowNullableString": true,
+        "allowNullableNumber": false,
+        "allowAny": false,
+        "allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing": false
+      }
+    ]
+  }
 }
