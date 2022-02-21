@@ -1,0 +1,29 @@
+{
+  "name": "devandtalent",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "npm run build && node ./dist/index.js",
+    "build": "tsc",
+    "lint": "ts-standard",
+    "dev": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanchis/devandtalent.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanchis/devandtalent/issues"
+  },
+  "homepage": "https://github.com/sanchis/devandtalent#readme",
+  "dependencies": {
+    "fastify": "3.27.2"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.15",
+    "ts-standard": "11.0.0",
+    "typescript": "4.5.5"
+  }
+}
