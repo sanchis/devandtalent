@@ -1,11 +1,21 @@
-version: '2'
+version: '3.8'
 services:
-  postgres:
-    image: 'postgres:latest'
-    restart: always
-    volumes:
-      - './postgres_data:/var/lib/postgresql/data'
+  db:
+    image: postgres
     environment:
-      - POSTGRES_PASSWORD=postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: jt-test
     ports:
-      - '5432:5432'
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - "3000:80"
+volumes:
+    pgdata:

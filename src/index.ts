@@ -16,10 +16,12 @@ app.listen(3000, (error: Error | null, address: string) => {
     process.exit(1)
   }
 
-  createConnection()
-    .catch((error: Error) => {
-      app.log.error('Error conecting to db')
-      app.log.error(error)
-      process.exit(2)
-    })
+  setTimeout(() => {
+    createConnection()
+      .catch((error: Error) => {
+        app.log.error('Error connecting to db')
+        app.log.error(error)
+        process.exit(2)
+      })
+  }, 20000)
 })
