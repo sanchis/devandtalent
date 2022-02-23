@@ -10,7 +10,7 @@ const app = Fastify({
 
 void app.register(pluginsRegister)
 
-app.listen(3000, (error: Error | null, address: string) => {
+app.listen(3000, '0.0.0.0', (error: Error | null, address: string) => {
   if (error !== null) {
     app.log.error(error)
     process.exit(1)
@@ -23,5 +23,5 @@ app.listen(3000, (error: Error | null, address: string) => {
         app.log.error(error)
         process.exit(2)
       })
-  }, 20000)
+  }, 10000)
 })
