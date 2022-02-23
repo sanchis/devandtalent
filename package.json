@@ -6,7 +6,7 @@
     "start": "npm run build && node ./dist/index.js",
     "build": "tsc",
     "lint": "ts-standard",
-    "dev": "nodemon ./src/index.ts",
+    "dev": "nodemon ./src/index.ts -e ts --exec npm run build",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
     "typeorm:migration:generate": "npm run typeorm -- migration:generate",
     "typeorm:migration:apply": "npm run typeorm -- migration:run",
@@ -28,6 +28,7 @@
     "fastify-autoload": "3.10.0",
     "fastify-env": "2.1.1",
     "fastify-sensible": "3.1.2",
+    "fastify-swagger": "^4.15.0",
     "pg": "8.7.3",
     "typeorm": "0.2.43"
   },

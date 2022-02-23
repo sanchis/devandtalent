@@ -1,6 +1,6 @@
 'use strict'
 
-import path from 'path'
+import * as path from 'node:path'
 import AutoLoad from 'fastify-autoload'
 import { FastifyInstance, FastifyPluginOptions, FastifyRegisterOptions } from 'fastify'
 

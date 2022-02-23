@@ -10,6 +10,11 @@ const app = Fastify({
 
 void app.register(pluginsRegister)
 
+app.ready(err => {
+  if (!err) {
+    app.swagger()
+  }
+})
 app.listen(3000, (error: Error | null, address: string) => {
   if (error !== null) {
     app.log.error(error)
