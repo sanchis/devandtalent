@@ -1,7 +1,7 @@
-# Awesome Project Build with TypeORM
+# TODO
 
-Steps to run this project:
+- [ ] TODO add codeship
+- [ ] TODO add rollbar
+- [ ] TODO add docker
+- [ ] TODO add datadog
 
-1. Run `npm i` command
-2. Run `docker-compose up` command
-3. Run `npm start` command
