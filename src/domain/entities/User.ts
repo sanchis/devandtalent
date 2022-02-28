@@ -7,7 +7,7 @@ export interface User {
 }
 
 export enum AvailabilityUser{
-  FIND_WORK,
-  REQUESTED,
-  WORKING
+  FIND_WORK = 'FIND_WORK',
+  REQUESTED= 'REQUESTED',
+  WORKING ='WORKING'
 }

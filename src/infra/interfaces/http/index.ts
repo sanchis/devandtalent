@@ -11,7 +11,6 @@ const app = Fastify({
 const rollbar = new Rollbar({
   accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
   captureUncaught: true,
-
   captureUnhandledRejections: true
 })
 void app.register(pluginsRegister)
@@ -19,18 +18,19 @@ app.setErrorHandler((error: FastifyError, request: FastifyRequest) => {
   rollbar.log(error)
 })
 
-app.listen(3000, '0.0.0.0', (error: Error | null, address: string) => {
-  if (error !== null) {
+createConnection()
+  .then(() => startServer())
+  .catch((error: Error) => {
+    app.log.error('Error connecting to db')
     app.log.error(error)
-    process.exit(1)
-  }
+    process.exit(2)
+  })
 
-  setTimeout(() => {
-    createConnection()
-      .catch((error: Error) => {
-        app.log.error('Error connecting to db')
-        app.log.error(error)
-        process.exit(2)
-      })
-  }, 10000)
-})
+const startServer = (): void => {
+  app.listen(3000, (error: Error | null, address: string) => {
+    if (error !== null) {
+      app.log.error(error)
+      process.exit(1)
+    }
+  })
+}

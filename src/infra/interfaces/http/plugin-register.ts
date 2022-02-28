@@ -4,6 +4,9 @@ import path from 'node:path'
 import AutoLoad from 'fastify-autoload'
 import { FastifyInstance, FastifyPluginOptions, FastifyRegisterOptions } from 'fastify'
 import fastifySwagger from 'fastify-swagger'
+import fp from 'fastify-plugin'
+import fastifySensible from 'fastify-sensible'
+import fastifyCors from 'fastify-cors'
 
 export default async function (fastify: FastifyInstance, opts: FastifyRegisterOptions<FastifyPluginOptions>): Promise<void> {
   // Place here your custom code!
@@ -22,7 +25,7 @@ export default async function (fastify: FastifyInstance, opts: FastifyRegisterOp
         url: 'https://swagger.io',
         description: 'Find more info here'
       },
-      host: 'localhost:3000',
+      host: `localhost:${process.env.PORT as string}`,
       schemes: ['http'],
       consumes: ['application/json'],
       produces: ['application/json']
@@ -51,16 +54,13 @@ export default async function (fastify: FastifyInstance, opts: FastifyRegisterOp
       // }
     }
   })
-  // This loads all plugins defined in plugins
-  // those should be support plugins that are reused
-  // through your application
-  void fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'plugins'),
-    options: Object.assign({}, opts)
+
+  void fp(async function (fastify: FastifyInstance, opts: FastifyRegisterOptions<FastifyPluginOptions>) {
+    void fastify.register(fastifySensible, {
+      errorHandler: false
+    })
   })
 
-  // This loads all plugins defined in routes
-  // define your routes in one of these
   void fastify.register(AutoLoad, {
     dir: path.join(__dirname, 'routes'),
     options: Object.assign({}, opts)
