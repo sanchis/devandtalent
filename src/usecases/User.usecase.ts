@@ -1,4 +1,4 @@
-import { User } from '../domain/entities/User'
+import { User, UserCreate } from '../domain/entities/User'
 import { UserAdapter } from '../domain/user.adapter'
 
 export default class UserUseCase {
@@ -15,5 +15,9 @@ export default class UserUseCase {
 
   async findAll (): Promise<User[]> {
     return await this.adapter.findAll()
+  }
+
+  async create (user: UserCreate): Promise<User> {
+    return await this.adapter.create(user)
   }
 }

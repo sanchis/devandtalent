@@ -26,6 +26,27 @@ const userPropsSchema: unknown = {
     type: 'string'
   }
 }
+
+const updateCreateSchema: unknown = {
+  name: {
+    type: 'string'
+  },
+  availability: {
+    type: 'string',
+    enum: [
+      'WORKING',
+      'REQUESTED',
+      'FIND_WORK'
+    ]
+  },
+  email: {
+    type: 'string'
+  },
+  country: {
+    type: 'string'
+  }
+}
+
 export const findAllSchema: FastifySchema = {
   response: {
     200: {
@@ -37,6 +58,20 @@ export const findAllSchema: FastifySchema = {
     }
   },
   ...commonProps
+}
+
+export const createSchema: FastifySchema = {
+  ...commonProps,
+  body: {
+    type: 'object',
+    properties: updateCreateSchema
+  },
+  response: {
+    202: {
+      type: 'object',
+      properties: userPropsSchema
+    }
+  }
 }
 
 export const findByIdSchema: FastifySchema = {

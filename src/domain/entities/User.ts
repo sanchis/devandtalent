@@ -6,6 +6,8 @@ export interface User {
   country: string
 }
 
+export type UserCreate = Omit<User, 'id'>
+
 export enum AvailabilityUser{
   FIND_WORK = 'FIND_WORK',
   REQUESTED= 'REQUESTED',

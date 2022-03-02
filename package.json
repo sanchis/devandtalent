@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "http:start": "node ./dist/index.js",
+    "http:start": "node ./dist/infra/interfaces/http/index.js",
     "http:dev": "npm run clean && tsc -w & nodemon -w dist dist/infra/interfaces/http/index.js",
     "build": "npm run clean && tsc",
     "clean": "rm -rf ./dist",
@@ -31,10 +31,12 @@
     "fastify-swagger": "4.15.0",
     "pg": "8.7.3",
     "rollbar": "^2.24.0",
-    "typeorm": "0.2.43"
+    "typeorm": "0.2.43",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "17.0.19",
+    "@types/uuid": "^8.3.4",
     "nodemon": "2.0.15",
     "pino-pretty": "7.5.1",
     "ts-node": "10.5.0",

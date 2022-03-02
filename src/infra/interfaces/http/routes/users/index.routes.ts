@@ -1,6 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
+import { UserCreate } from '../../../../../domain/entities/User'
 import { UserUseCase } from '../../../../../usecases'
-import { findByIdSchema, findAllSchema } from './schemas'
+import { findByIdSchema, findAllSchema, createSchema } from './schemas'
 
 interface GetByIdParams {
   id: string
@@ -15,6 +16,12 @@ export default async function (fastify: FastifyInstance): Promise<void> {
   })
 
   fastify.get('/', { schema: findAllSchema }, async (request: FastifyRequest, reply: FastifyReply) => {
-    return await reply.send(UserUseCase.findAll())
+    return await reply.send(await UserUseCase.findAll())
+  })
+
+  fastify.post('/', { schema: createSchema }, async (request: FastifyRequest<{
+    Body: UserCreate
+  }>, reply: FastifyReply) => {
+    return await reply.send(await UserUseCase.create(request.body))
   })
 }
