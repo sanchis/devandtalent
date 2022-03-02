@@ -1,16 +1,15 @@
 import { User } from '../domain/entities/User'
-import { UserAbstractRepository } from '../domain/user.repository'
+import { UserAdapter } from '../domain/user.adapter'
 
 export default class UserUseCase {
   /**
    *
    */
-  constructor (private readonly repository: UserAbstractRepository) {
+  constructor (private readonly adapter: UserAdapter) {
 
   }
 
   async findById (id: string): Promise<User|undefined> {
-    console.log('uc', id)
-    return await this.repository.findById(id)
+    return await this.adapter.findById(id)
   }
 }

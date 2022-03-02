@@ -1,21 +1,17 @@
 'use strict'
-
-import path from 'node:path'
-import AutoLoad from 'fastify-autoload'
-import { FastifyInstance, FastifyPluginOptions, FastifyRegisterOptions } from 'fastify'
+import { FastifyError, FastifyInstance, FastifyPluginOptions, FastifyRegisterOptions, FastifyRequest } from 'fastify'
 import fastifySwagger from 'fastify-swagger'
 import fp from 'fastify-plugin'
 import fastifySensible from 'fastify-sensible'
-import fastifyCors from 'fastify-cors'
+import userRoutes from './routes/users/index.routes'
+import Rollbar from 'rollbar'
 
 export default async function (fastify: FastifyInstance, opts: FastifyRegisterOptions<FastifyPluginOptions>): Promise<void> {
-  // Place here your custom code!
-
-  // Do not touch the following lines
   void fastify.register(fastifySwagger, {
     routePrefix: '/doc',
     exposeRoute: true,
     swagger: {
+      tags: [{ name: 'Users' }],
       info: {
         title: 'Test swagger',
         description: 'Testing the Fastify swagger API',
@@ -61,8 +57,17 @@ export default async function (fastify: FastifyInstance, opts: FastifyRegisterOp
     })
   })
 
-  void fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'routes'),
-    options: Object.assign({}, opts)
+  void fastify.register((fastify: FastifyInstance, optis: FastifyRegisterOptions<FastifyPluginOptions>, done: Function) => {
+    const rollbar = new Rollbar({
+      accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+      captureUncaught: true,
+      captureUnhandledRejections: true
+    })
+    fastify.setErrorHandler((error: FastifyError, request: FastifyRequest) => {
+      rollbar.log(error)
+    })
+    done()
   })
+
+  void fastify.register(userRoutes, { prefix: 'users' })
 }
