@@ -7,7 +7,7 @@ const app = Fastify({
   logger: LoggerConfig()
 })
 
-// TODO move to adapters
+// TODO move to other layer
 createConnection()
   .then(() => startServer())
   .catch((error: Error) => {

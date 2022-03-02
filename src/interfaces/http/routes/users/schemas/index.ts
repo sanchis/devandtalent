@@ -94,3 +94,19 @@ export const findByIdSchema: FastifySchema = {
     }
   }
 }
+
+export const deleteByIdSchema: FastifySchema = {
+  tags: ['Users'],
+  params: {
+    type: 'object',
+    properties: {
+      id: {
+        type: 'string',
+        format: 'uuid',
+        description: 'the user identifier, as userId'
+      }
+    },
+    required: ['id']
+  },
+  response: 200
+}

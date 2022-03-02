@@ -21,4 +21,8 @@ export default class UserTypeormRepository extends AbstractRepository<User> impl
     }
     return userCreated
   }
+
+  async delete (id: string): Promise<void> {
+    await this.repository.delete(id)
+  }
 }
