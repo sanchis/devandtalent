@@ -1,10 +1,10 @@
 'use strict'
-import { FastifyError, FastifyInstance, FastifyPluginOptions, FastifyRegisterOptions, FastifyRequest } from 'fastify'
+import { FastifyInstance, FastifyPluginOptions, FastifyRegisterOptions } from 'fastify'
 import fastifySwagger from 'fastify-swagger'
 import fp from 'fastify-plugin'
 import fastifySensible from 'fastify-sensible'
 import userRoutes from './routes/users/index.routes'
-import Rollbar from 'rollbar'
+import RollbarLogger from './utils/RollbarLogger'
 
 export default async function (fastify: FastifyInstance, opts: FastifyRegisterOptions<FastifyPluginOptions>): Promise<void> {
   void fastify.register(fastifySwagger, {
@@ -57,17 +57,7 @@ export default async function (fastify: FastifyInstance, opts: FastifyRegisterOp
     })
   })
 
-  void fastify.register((fastify: FastifyInstance, optis: FastifyRegisterOptions<FastifyPluginOptions>, done: Function) => {
-    const rollbar = new Rollbar({
-      accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
-      captureUncaught: true,
-      captureUnhandledRejections: true
-    })
-    fastify.setErrorHandler((error: FastifyError, request: FastifyRequest) => {
-      rollbar.log(error)
-    })
-    done()
-  })
+  void fastify.register(RollbarLogger)
 
   void fastify.register(userRoutes, { prefix: 'users' })
 }

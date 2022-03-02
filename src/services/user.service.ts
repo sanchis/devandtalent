@@ -1,5 +1,6 @@
 import { User, UserCreate } from '../domain/entities/User'
 import { UserPort } from '../domain/ports/user.port'
+import NotFoundError from './errors/NotFound.error'
 
 export default class UserService {
   /**
@@ -23,7 +24,10 @@ export default class UserService {
   }
 
   async delete (id: string): Promise<void> {
-    // TODO throw custom error if user not exist
+    const userExist = await this.adapter.findById(id)
+    if (!userExist) {
+      throw new NotFoundError('User not found')
+    }
     return await this.adapter.delete(id)
   }
 }
