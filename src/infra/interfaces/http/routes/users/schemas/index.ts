@@ -26,11 +26,14 @@ const userPropsSchema: unknown = {
     type: 'string'
   }
 }
-export const usersSchema: FastifySchema = {
+export const findAllSchema: FastifySchema = {
   response: {
     200: {
       type: 'array',
-      properties: userPropsSchema
+      items: {
+        type: 'object',
+        properties: userPropsSchema
+      }
     }
   },
   ...commonProps

@@ -12,4 +12,8 @@ export default class UserUseCase {
   async findById (id: string): Promise<User|undefined> {
     return await this.adapter.findById(id)
   }
+
+  async findAll (): Promise<User[]> {
+    return await this.adapter.findAll()
+  }
 }

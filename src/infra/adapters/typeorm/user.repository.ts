@@ -8,4 +8,8 @@ export default class UserTypeormRepository extends AbstractRepository<User> impl
   async findById (id: string): Promise<User|undefined> {
     return await this.repository.findOne(id)
   }
+
+  async findAll (): Promise<User[]> {
+    return await this.repository.find()
+  }
 }

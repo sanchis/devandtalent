@@ -1,4 +1,4 @@
-import UserUC from './User.usecase'
+import UserUC from './user.usecase'
 import UserTypeormRepository from '../infra/adapters/typeorm/user.repository'
 import { getCustomRepository } from 'typeorm'
 

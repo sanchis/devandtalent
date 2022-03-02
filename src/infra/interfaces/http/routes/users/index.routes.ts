@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { UserUseCase } from '../../../../../usecases'
-import { findByIdSchema, usersSchema } from './schemas'
+import { findByIdSchema, findAllSchema } from './schemas'
 
 interface GetByIdParams {
   id: string
@@ -14,7 +14,7 @@ export default async function (fastify: FastifyInstance): Promise<void> {
     return await reply.send(user)
   })
 
-  fastify.get('/', { schema: usersSchema }, async (request: FastifyRequest, reply: FastifyReply) => {
-    return await reply.send([])
+  fastify.get('/', { schema: findAllSchema }, async (request: FastifyRequest, reply: FastifyReply) => {
+    return await reply.send(UserUseCase.findAll())
   })
 }
