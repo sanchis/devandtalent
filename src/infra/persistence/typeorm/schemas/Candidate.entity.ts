@@ -1,5 +1,5 @@
 import { EntitySchema } from 'typeorm'
-import { Candidate, CandidateState } from '../../../../domain/entities/Candidaces'
+import { Candidate, CandidateState } from '../../../../domain/entities/Candidates'
 
 export const CandidatesEntity = new EntitySchema<Candidate>({
   name: 'candidate',
