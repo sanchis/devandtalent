@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "http:start": "node ./dist/infra/interfaces/http/index.js",
-    "http:dev": "npm run clean && tsc -w & nodemon -w dist dist/infra/interfaces/http/index.js",
+    "http:start": "node ./dist/interfaces/http/index.js",
+    "http:dev": "npm run clean && tsc -w & nodemon -w dist dist/interfaces/http/index.js",
     "build": "npm run clean && tsc",
     "clean": "rm -rf ./dist",
     "lint": "ts-standard",

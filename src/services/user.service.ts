@@ -1,11 +1,11 @@
 import { User, UserCreate } from '../domain/entities/User'
-import { UserAdapter } from '../domain/user.adapter'
+import { UserPort } from '../domain/ports/user.port'
 
-export default class UserUseCase {
+export default class UserService {
   /**
    *
    */
-  constructor (private readonly adapter: UserAdapter) {
+  constructor (private readonly adapter: UserPort) {
 
   }
 

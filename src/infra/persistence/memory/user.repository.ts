@@ -1,8 +1,8 @@
-import { UserAdapter } from '../../../domain/user.adapter'
+import { UserPort } from '../../../domain/ports/user.port'
 import { User, UserCreate } from '../../../domain/entities/User'
 import { v4 as uuidv4 } from 'uuid'
 
-export default class UserMemoryRepository implements UserAdapter {
+export default class UserMemoryRepository implements UserPort {
   private readonly users: User[] = []
 
   async findById (id: string): Promise<User|undefined> {

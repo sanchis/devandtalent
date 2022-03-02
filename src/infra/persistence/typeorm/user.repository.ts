@@ -1,10 +1,10 @@
 import { AbstractRepository, EntityRepository } from 'typeorm'
-import { UserAdapter } from '../../../domain/user.adapter'
+import { UserPort } from '../../../domain/ports/user.port'
 import { User, UserCreate } from '../../../domain/entities/User'
 import { UserEntity } from './schemas/User.entity'
 
 @EntityRepository(UserEntity)
-export default class UserTypeormRepository extends AbstractRepository<User> implements UserAdapter {
+export default class UserTypeormRepository extends AbstractRepository<User> implements UserPort {
   async findById (id: string): Promise<User|undefined> {
     return await this.repository.findOne(id)
   }

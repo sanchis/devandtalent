@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import { UserCreate } from '../../../../../domain/entities/User'
-import { UserUseCase } from '../../../../../usecases'
+import { UserCreate } from '../../../../domain/entities/User'
+import { UserService } from '../../../../services'
 import { findByIdSchema, findAllSchema, createSchema } from './schemas'
 
 interface GetByIdParams {
@@ -11,17 +11,17 @@ export default async function (fastify: FastifyInstance): Promise<void> {
   fastify.get('/:id', { schema: findByIdSchema }, async (request: FastifyRequest<{
     Params: GetByIdParams
   }>, reply: FastifyReply) => {
-    const user = await UserUseCase.findById(request.params.id)
+    const user = await UserService.findById(request.params.id)
     return await reply.send(user)
   })
 
   fastify.get('/', { schema: findAllSchema }, async (request: FastifyRequest, reply: FastifyReply) => {
-    return await reply.send(await UserUseCase.findAll())
+    return await reply.send(await UserService.findAll())
   })
 
   fastify.post('/', { schema: createSchema }, async (request: FastifyRequest<{
     Body: UserCreate
   }>, reply: FastifyReply) => {
-    return await reply.send(await UserUseCase.create(request.body))
+    return await reply.send(await UserService.create(request.body))
   })
 }
