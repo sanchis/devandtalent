@@ -16,5 +16,4 @@ export const ClientEntity = new EntitySchema<Client>({
       generated: 'uuid'
     }
   }
-
 })

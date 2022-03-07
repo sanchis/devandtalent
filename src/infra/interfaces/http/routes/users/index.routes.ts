@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import { UserCreate } from '../../../../domain/entities/User'
-import { UserService } from '../../../../services'
+import { UserCreate } from '../../../../../domain/entities/User'
+import { UserService } from '../../../../../services'
 import { findByIdSchema, findAllSchema, createSchema, deleteByIdSchema } from './schemas'
 
 // TODO move to other folder
