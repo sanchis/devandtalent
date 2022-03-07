@@ -1,11 +1,11 @@
-export interface Candidate {
+export interface Candidacy {
   id: string
   job_request: string
   user: string
-  state: CandidateState
+  state: CandidacyState
 }
 
-export enum CandidateState {
+export enum CandidacyState {
   REJECTED,
   PENDING,
   ACCEPTED

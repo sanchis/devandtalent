@@ -11,9 +11,9 @@ export const PlacementEntity = new EntitySchema<Placement>({
     }
   },
   relations: {
-    candidate: {
+    candidacy: {
       type: 'many-to-one',
-      target: 'candidate'
+      target: 'candidacy'
     },
     client: {
       type: 'many-to-one',

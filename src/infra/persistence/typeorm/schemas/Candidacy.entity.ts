@@ -1,12 +1,12 @@
 import { EntitySchema } from 'typeorm'
-import { Candidate, CandidateState } from '../../../../domain/entities/Candidates'
+import { Candidacy, CandidacyState } from '../../../../domain/entities/Candidacy'
 
-export const CandidatesEntity = new EntitySchema<Candidate>({
-  name: 'candidate',
+export const CandidacyEntity = new EntitySchema<Candidacy>({
+  name: 'candidacy',
   columns: {
     state: {
       type: 'enum',
-      enum: CandidateState
+      enum: CandidacyState
     },
     id: {
       type: 'uuid',
