@@ -7,6 +7,7 @@ export interface User {
 }
 
 export type UserCreate = Omit<User, 'id'>
+export type UserUpdate = Omit<User, 'id'>
 
 export enum AvailabilityUser{
   FIND_WORK = 'FIND_WORK',

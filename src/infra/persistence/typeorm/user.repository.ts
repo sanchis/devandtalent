@@ -1,6 +1,6 @@
 import { AbstractRepository, EntityRepository } from 'typeorm'
 import { UserPort } from '../../../domain/ports/user.port'
-import { User, UserCreate } from '../../../domain/entities/User'
+import { User, UserCreate, UserUpdate } from '../../../domain/entities/User'
 import { UserEntity } from './schemas/User.entity'
 
 @EntityRepository(UserEntity)
@@ -24,5 +24,12 @@ export default class UserTypeormRepository extends AbstractRepository<User> impl
 
   async delete (id: string): Promise<void> {
     await this.repository.delete(id)
+  }
+
+  async update (id: string, user: UserUpdate): Promise<User | undefined> {
+    await this.repository.update({
+      id
+    }, user)
+    return await this.findById(id)
   }
 }

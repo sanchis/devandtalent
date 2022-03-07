@@ -1,5 +1,5 @@
 import { UserPort } from '../../../domain/ports/user.port'
-import { User, UserCreate } from '../../../domain/entities/User'
+import { User, UserCreate, UserUpdate } from '../../../domain/entities/User'
 import { v4 as uuidv4 } from 'uuid'
 
 export default class UserMemoryRepository implements UserPort {
@@ -25,5 +25,17 @@ export default class UserMemoryRepository implements UserPort {
   async delete (id: string): Promise<void> {
     this.users = this.users.filter(user => user.id !== id)
     return await Promise.resolve()
+  }
+
+  async update (id: string, user: UserUpdate): Promise<User|undefined> {
+    const indexUser = this.users.findIndex(user => user.id !== id)
+    if (indexUser !== -1) {
+      this.users[indexUser] = {
+        id,
+        ...user
+      }
+      return await Promise.resolve(this.users[indexUser])
+    }
+    return await Promise.resolve(undefined)
   }
 }

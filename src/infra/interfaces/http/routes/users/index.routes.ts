@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import { UserCreate } from '../../../../../domain/entities/User'
+import { UserCreate, UserUpdate } from '../../../../../domain/entities/User'
 import { UserService } from '../../../../../services'
-import { findByIdSchema, findAllSchema, createSchema, deleteByIdSchema } from './schemas'
+import { findByIdSchema, findAllSchema, createSchema, deleteByIdSchema, updateByIdSchema } from './schemas'
 
 // TODO move to other folder
 interface GetByIdParams {
@@ -9,6 +9,8 @@ interface GetByIdParams {
 }
 
 type DeleteByIdParams = GetByIdParams
+type UpdateByIdParams = GetByIdParams
+type UpdateBody = UserUpdate
 
 export default async function (fastify: FastifyInstance): Promise<void> {
   fastify.get('/:id', { schema: findByIdSchema }, async (request: FastifyRequest<{
@@ -32,5 +34,12 @@ export default async function (fastify: FastifyInstance): Promise<void> {
     Params: DeleteByIdParams
   }>, reply: FastifyReply) => {
     return await reply.send(await UserService.delete(request.params.id))
+  })
+
+  fastify.put('/:id', { schema: updateByIdSchema }, async (request: FastifyRequest<{
+    Params: UpdateByIdParams
+    Body: UpdateBody
+  }>, reply: FastifyReply) => {
+    return await reply.send(await UserService.update(request.params.id, request.body))
   })
 }

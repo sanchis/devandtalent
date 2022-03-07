@@ -110,3 +110,24 @@ export const deleteByIdSchema: FastifySchema = {
   },
   response: 200
 }
+
+export const updateByIdSchema: FastifySchema = {
+  tags: ['Users'],
+  body: {
+    type: 'object',
+    properties: updateCreateSchema
+  },
+  params: {
+    type: 'object',
+    properties: {
+      id: {
+        type: 'string',
+        format: 'uuid',
+        description: 'the user identifier, as userId'
+      }
+    },
+
+    required: ['id']
+  },
+  response: 200
+}

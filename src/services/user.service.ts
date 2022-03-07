@@ -1,4 +1,4 @@
-import { User, UserCreate } from '../domain/entities/User'
+import { User, UserCreate, UserUpdate } from '../domain/entities/User'
 import { UserPort } from '../domain/ports/user.port'
 import NotFoundError from './errors/NotFound.error'
 
@@ -21,6 +21,10 @@ export default class UserService {
 
   async create (user: UserCreate): Promise<User> {
     return await this.adapter.create(user)
+  }
+
+  async update (id: string, user: UserUpdate): Promise<User|undefined> {
+    return await this.adapter.update(id, user)
   }
 
   async delete (id: string): Promise<void> {
