@@ -1,26 +1,28 @@
 import { FastifySchema } from 'fastify'
+import { clientPropsSchema } from '../../clients/schemas'
 
 const commonProps: FastifySchema = {
-  tags: ['Clients']
+  tags: ['Job-Request']
 }
 
-export const clientPropsSchema: unknown = {
+const jobRequestPropsSchema: unknown = {
   id: {
     type: 'string'
   },
-  name: {
+  job_function: {
     type: 'string'
   },
-  country: {
-    type: 'string'
+  client: {
+    type: 'object',
+    properties: clientPropsSchema
   }
 }
 
 const updateCreateSchema: unknown = {
-  name: {
+  job_function: {
     type: 'string'
   },
-  country: {
+  client: {
     type: 'string'
   }
 }
@@ -31,7 +33,7 @@ export const findAllSchema: FastifySchema = {
       type: 'array',
       items: {
         type: 'object',
-        properties: clientPropsSchema
+        properties: jobRequestPropsSchema
       }
     }
   },
@@ -42,12 +44,13 @@ export const createSchema: FastifySchema = {
   ...commonProps,
   body: {
     type: 'object',
-    properties: updateCreateSchema
+    properties: updateCreateSchema,
+    required: ['job_function', 'client']
   },
   response: {
     202: {
       type: 'object',
-      properties: clientPropsSchema
+      properties: jobRequestPropsSchema
     }
   }
 }
@@ -60,7 +63,7 @@ export const findByIdSchema: FastifySchema = {
       id: {
         type: 'string',
         format: 'uuid',
-        description: 'the user identifier, as userId'
+        description: 'the job request identifier'
       }
     },
     required: ['id']
@@ -68,7 +71,7 @@ export const findByIdSchema: FastifySchema = {
   response: {
     200: {
       type: 'object',
-      properties: clientPropsSchema
+      properties: jobRequestPropsSchema
     }
   }
 }
@@ -81,7 +84,7 @@ export const deleteByIdSchema: FastifySchema = {
       id: {
         type: 'string',
         format: 'uuid',
-        description: 'the client identifier, as clientId'
+        description: 'the job request identifier'
       }
     },
     required: ['id']
@@ -93,7 +96,8 @@ export const updateByIdSchema: FastifySchema = {
   ...commonProps,
   body: {
     type: 'object',
-    properties: updateCreateSchema
+    properties: updateCreateSchema,
+    required: ['job_function', 'client']
   },
   params: {
     type: 'object',
@@ -101,10 +105,9 @@ export const updateByIdSchema: FastifySchema = {
       id: {
         type: 'string',
         format: 'uuid',
-        description: 'the client identifier, as clientId'
+        description: 'the job request identifier'
       }
     },
-
     required: ['id']
   },
   response: 200

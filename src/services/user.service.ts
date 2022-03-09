@@ -2,6 +2,7 @@ import { User, UserCreate, UserUpdate } from '../domain/entities/User'
 import { UserPort } from '../domain/ports/user.port'
 import NotFoundError from './errors/NotFound.error'
 
+// TODO move different folder
 export interface UserServiceModel {
   deleteUser: (id: string) => Promise<void>
   updateUser: (id: string, user: UserUpdate) => Promise<User|undefined>

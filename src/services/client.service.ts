@@ -2,6 +2,7 @@ import { Client, ClientCreate, ClientUpdate } from '../domain/entities/Client'
 import { ClientPort } from '../domain/ports/client.port'
 import NotFoundError from './errors/NotFound.error'
 
+// TODO move different folder
 export interface ClientServiceModel {
   deleteClient: (id: string) => Promise<void>
   updateClient: (id: string, client: ClientUpdate) => Promise<Client|undefined>

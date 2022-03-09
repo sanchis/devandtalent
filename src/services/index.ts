@@ -1,10 +1,14 @@
-import UserTypeormRepository from '../infra/persistence/typeorm/user.repository'
-import ClientTypeormRepository from '../infra/persistence/typeorm/client.repository'
+import userTypeormRepository from '../infra/persistence/typeorm/user.repository'
+import clientTypeormRepository from '../infra/persistence/typeorm/client.repository'
 import userSrv from './user.service'
+import jobRequestSrv from './job-request.service'
 import clientSrv from './client.service'
+import jobRequestRepository from '../infra/persistence/typeorm/job-request.repository'
 
-const userAdapter = UserTypeormRepository()
-const clientAdapter = ClientTypeormRepository()
+const userAdapter = userTypeormRepository()
+const clientAdapter = clientTypeormRepository()
+const jobRequestAdapter = jobRequestRepository()
 
 export const userService = userSrv(userAdapter)
+export const jobRequestService = jobRequestSrv(jobRequestAdapter)
 export const clientService = clientSrv(clientAdapter)
