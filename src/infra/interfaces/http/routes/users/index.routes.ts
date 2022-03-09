@@ -11,6 +11,7 @@ interface GetByIdParams {
 type DeleteByIdParams = GetByIdParams
 type UpdateByIdParams = GetByIdParams
 type UpdateBody = UserUpdate
+type CreateBody = UserCreate
 
 export default async function (fastify: FastifyInstance): Promise<void> {
   fastify.get('/:id', { schema: findByIdSchema }, async (request: FastifyRequest<{
@@ -25,7 +26,7 @@ export default async function (fastify: FastifyInstance): Promise<void> {
   })
 
   fastify.post('/', { schema: createSchema }, async (request: FastifyRequest<{
-    Body: UserCreate
+    Body: CreateBody
   }>, reply: FastifyReply) => {
     return await reply.send(await userService?.createUser(request.body))
   })

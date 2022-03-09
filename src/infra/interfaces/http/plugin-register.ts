@@ -4,6 +4,7 @@ import fastifySwagger from 'fastify-swagger'
 import fp from 'fastify-plugin'
 import fastifySensible from 'fastify-sensible'
 import userRoutes from './routes/users/index.routes'
+import clientRoutes from './routes/clients/index.routes'
 import RollbarLogger from './utils/RollbarLogger'
 
 export default async function (fastify: FastifyInstance, opts: FastifyRegisterOptions<FastifyPluginOptions>): Promise<void> {
@@ -11,7 +12,7 @@ export default async function (fastify: FastifyInstance, opts: FastifyRegisterOp
     routePrefix: '/doc',
     exposeRoute: true,
     swagger: {
-      tags: [{ name: 'Users' }],
+      tags: [{ name: 'Users' }, { name: 'Clients' }],
       info: {
         title: 'Test swagger',
         description: 'Testing the Fastify swagger API',
@@ -37,4 +38,5 @@ export default async function (fastify: FastifyInstance, opts: FastifyRegisterOp
   void fastify.register(RollbarLogger)
 
   void fastify.register(userRoutes, { prefix: 'users' })
+  void fastify.register(clientRoutes, { prefix: 'clients' })
 }

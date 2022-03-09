@@ -75,7 +75,7 @@ export const createSchema: FastifySchema = {
 }
 
 export const findByIdSchema: FastifySchema = {
-  tags: ['Users'],
+  ...commonProps,
   params: {
     type: 'object',
     properties: {
@@ -96,7 +96,7 @@ export const findByIdSchema: FastifySchema = {
 }
 
 export const deleteByIdSchema: FastifySchema = {
-  tags: ['Users'],
+  ...commonProps,
   params: {
     type: 'object',
     properties: {
@@ -112,7 +112,7 @@ export const deleteByIdSchema: FastifySchema = {
 }
 
 export const updateByIdSchema: FastifySchema = {
-  tags: ['Users'],
+  ...commonProps,
   body: {
     type: 'object',
     properties: updateCreateSchema

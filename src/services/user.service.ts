@@ -12,14 +12,12 @@ export interface UserServiceModel {
 
 export default function UserService (adapter: UserPort): UserServiceModel {
   const deleteUser = async (id: string): Promise<void> => {
-    const userExist = await adapter.findById(id)
-    if (!userExist) {
-      throw new NotFoundError('User not found')
-    }
+    await findByIdUser(id)
     return await adapter.delete(id)
   }
 
   async function updateUser (id: string, user: UserUpdate): Promise<User|undefined> {
+    await findByIdUser(id)
     return await adapter.update(id, user)
   }
 
@@ -28,7 +26,10 @@ export default function UserService (adapter: UserPort): UserServiceModel {
   }
 
   const findByIdUser = async (id: string): Promise<User|undefined> => {
-    // TODO return 404 if user not exist ?
+    const userExist = await adapter.findById(id)
+    if (!userExist) {
+      throw new NotFoundError('User not found')
+    }
     return await adapter.findById(id)
   }
 
