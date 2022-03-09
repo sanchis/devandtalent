@@ -1,20 +1,21 @@
-import { AbstractRepository, EntityRepository } from 'typeorm'
 import { UserPort } from '../../../domain/ports/user.port'
 import { User, UserCreate, UserUpdate } from '../../../domain/entities/User'
 import { UserEntity } from './schemas/User.entity'
+import { getRepository } from 'typeorm'
 
-@EntityRepository(UserEntity)
-export default class UserTypeormRepository extends AbstractRepository<User> implements UserPort {
-  async findById (id: string): Promise<User|undefined> {
-    return await this.repository.findOne(id)
+export default function userRepository (): UserPort {
+  const repository = getRepository(UserEntity)
+
+  const findById = async (id: string): Promise<User|undefined> => {
+    return await repository.findOne(id)
   }
 
-  async findAll (): Promise<User[]> {
-    return await this.repository.find()
+  const findAll = async (): Promise<User[]> => {
+    return await repository.find()
   }
 
-  async create (user: UserCreate): Promise<User> {
-    const result = await this.repository.insert(user)
+  const create = async (user: UserCreate): Promise<User> => {
+    const result = await repository.insert(user)
     const userCreated = {
       ...user,
       id: result.identifiers.at(0)?.id
@@ -22,14 +23,22 @@ export default class UserTypeormRepository extends AbstractRepository<User> impl
     return userCreated
   }
 
-  async delete (id: string): Promise<void> {
-    await this.repository.delete(id)
+  const erase = async (id: string): Promise<void> => {
+    await repository.delete(id)
   }
 
-  async update (id: string, user: UserUpdate): Promise<User | undefined> {
-    await this.repository.update({
+  const update = async (id: string, user: UserUpdate): Promise<User | undefined> => {
+    await repository.update({
       id
     }, user)
-    return await this.findById(id)
+    return await findById(id)
+  }
+
+  return {
+    findAll,
+    findById,
+    create,
+    delete: erase,
+    update
   }
 }

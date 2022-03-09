@@ -1,5 +1,5 @@
-import UserSRV from './user.service'
 import UserTypeormRepository from '../infra/persistence/typeorm/user.repository'
-import { getCustomRepository } from 'typeorm'
+import userSrv from './user.service'
 
-export const UserService = new UserSRV(getCustomRepository(UserTypeormRepository))
+const userAdapter = UserTypeormRepository()
+export const userService = userSrv(userAdapter)
