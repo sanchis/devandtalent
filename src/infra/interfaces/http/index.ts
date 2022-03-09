@@ -18,7 +18,7 @@ createConnection()
 
 const startServer = (): void => {
   void app.register(import('./plugin-register'))
-  app.listen(3000, (error: Error | null, address: string) => {
+  app.listen(process.env.PORT, (error: Error | null, address: string) => {
     if (error !== null) {
       app.log.error(error)
       process.exit(1)
