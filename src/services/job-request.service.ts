@@ -1,7 +1,7 @@
 import { JobRequest, JobRequestCreate, JobRequestUpdate } from '../domain/entities/JobRequest'
 import { JobRequestPort } from '../domain/ports/job-request.port'
 import { ClientServiceModel } from './client.service'
-import NotFoundError from './errors/NotFound.error'
+import NotFoundError from '../domain/errors/NotFound.error'
 
 // TODO move different folder
 export interface JobRequestServiceModel {

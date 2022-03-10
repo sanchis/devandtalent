@@ -1,6 +1,6 @@
 import { Client, ClientCreate, ClientUpdate } from '../domain/entities/Client'
 import { ClientPort } from '../domain/ports/client.port'
-import NotFoundError from './errors/NotFound.error'
+import NotFoundError from '../domain/errors/NotFound.error'
 
 // TODO move different folder
 export interface ClientServiceModel {
