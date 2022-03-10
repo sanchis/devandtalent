@@ -42,7 +42,8 @@ export const createSchema: FastifySchema = {
   ...commonProps,
   body: {
     type: 'object',
-    properties: updateCreateSchema
+    properties: updateCreateSchema,
+    required: ['name', 'country']
   },
   response: {
     202: {
@@ -93,7 +94,8 @@ export const updateByIdSchema: FastifySchema = {
   ...commonProps,
   body: {
     type: 'object',
-    properties: updateCreateSchema
+    properties: updateCreateSchema,
+    required: ['name', 'country']
   },
   params: {
     type: 'object',
