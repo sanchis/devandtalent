@@ -1,49 +1,49 @@
 import { FastifySchema } from 'fastify'
+import { jobRequestPropsSchema } from '../../job-request/schemas'
+import { userPropsSchema } from '../../users/schemas'
 
 const commonProps: FastifySchema = {
-  tags: ['Users']
+  tags: ['Candidacy']
 }
 
-export const userPropsSchema: unknown = {
+export const candidacyPropsSchema: unknown = {
   id: {
     type: 'string'
   },
-  name: {
-    type: 'string'
-  },
-  availability: {
+  state: {
     type: 'string',
     enum: [
-      'WORKING',
-      'REQUESTED',
-      'FIND_WORK'
+      'REJECTED',
+      'PENDING',
+      'ACCEPTED'
     ]
   },
-  email: {
-    type: 'string'
+  user: {
+    type: 'object',
+    properties: userPropsSchema
   },
-  country: {
-    type: 'string'
+  jobRequest: {
+    type: 'object',
+    properties: jobRequestPropsSchema
   }
 }
 
 const updateCreateSchema: unknown = {
-  name: {
-    type: 'string'
-  },
-  availability: {
+  state: {
     type: 'string',
     enum: [
-      'WORKING',
-      'REQUESTED',
-      'FIND_WORK'
+      'REJECTED',
+      'PENDING',
+      'ACCEPTED'
     ]
   },
-  email: {
-    type: 'string'
+  userId: {
+    type: 'string',
+    format: 'uuid'
   },
-  country: {
-    type: 'string'
+  jobRequestId: {
+    type: 'string',
+    format: 'uuid'
   }
 }
 
@@ -53,7 +53,7 @@ export const findAllSchema: FastifySchema = {
       type: 'array',
       items: {
         type: 'object',
-        properties: userPropsSchema
+        properties: candidacyPropsSchema
       }
     }
   },
@@ -65,12 +65,12 @@ export const createSchema: FastifySchema = {
   body: {
     type: 'object',
     properties: updateCreateSchema,
-    required: ['name', 'availability', 'email', 'country']
+    required: ['state', 'userId', 'jobRequestId']
   },
   response: {
     202: {
       type: 'object',
-      properties: userPropsSchema
+      properties: candidacyPropsSchema
     }
   }
 }
@@ -91,7 +91,7 @@ export const findByIdSchema: FastifySchema = {
   response: {
     200: {
       type: 'object',
-      properties: userPropsSchema
+      properties: candidacyPropsSchema
     }
   }
 }
@@ -104,7 +104,7 @@ export const deleteByIdSchema: FastifySchema = {
       id: {
         type: 'string',
         format: 'uuid',
-        description: 'the user identifier, as userId'
+        description: 'the client identifier, as clientId'
       }
     },
     required: ['id']
@@ -117,7 +117,7 @@ export const updateByIdSchema: FastifySchema = {
   body: {
     type: 'object',
     properties: updateCreateSchema,
-    required: ['name', 'availability', 'email', 'country']
+    required: ['state', 'userId', 'jobRequestId']
   },
   params: {
     type: 'object',
@@ -125,7 +125,7 @@ export const updateByIdSchema: FastifySchema = {
       id: {
         type: 'string',
         format: 'uuid',
-        description: 'the user identifier, as userId'
+        description: 'the client identifier, as clientId'
       }
     },
 

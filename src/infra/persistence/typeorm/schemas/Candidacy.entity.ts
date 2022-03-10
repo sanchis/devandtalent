@@ -16,13 +16,15 @@ export const CandidacyEntity = new EntitySchema<Candidacy>({
   },
   relations: {
     // TODO unique user and job request
-    job_request: {
+    jobRequest: {
       target: 'job-request',
-      type: 'many-to-one'
+      type: 'many-to-one',
+      eager: true
     },
     user: {
       target: 'user',
-      type: 'many-to-one'
+      type: 'many-to-one',
+      eager: true
     }
   }
 })

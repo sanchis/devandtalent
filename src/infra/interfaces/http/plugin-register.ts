@@ -6,6 +6,7 @@ import fastifySensible from 'fastify-sensible'
 import userRoutes from './routes/users/index.routes'
 import clientRoutes from './routes/clients/index.routes'
 import jobRequestRoutes from './routes/job-request/index.routes'
+import candidacyRoutes from './routes/candidacy/index.routes'
 import RollbarLogger from './utils/RollbarLogger'
 
 export default async function (fastify: FastifyInstance, opts: FastifyRegisterOptions<FastifyPluginOptions>): Promise<void> {
@@ -13,7 +14,7 @@ export default async function (fastify: FastifyInstance, opts: FastifyRegisterOp
     routePrefix: '/doc',
     exposeRoute: true,
     swagger: {
-      tags: [{ name: 'Users' }, { name: 'Clients' }, { name: 'Job-Request' }],
+      tags: [{ name: 'Users' }, { name: 'Clients' }, { name: 'Candidacy' }, { name: 'Job-Request' }],
       info: {
         title: 'Test swagger',
         description: 'Testing the Fastify swagger API',
@@ -41,4 +42,5 @@ export default async function (fastify: FastifyInstance, opts: FastifyRegisterOp
   void fastify.register(userRoutes, { prefix: 'users' })
   void fastify.register(clientRoutes, { prefix: 'clients' })
   void fastify.register(jobRequestRoutes, { prefix: 'job-request' })
+  void fastify.register(candidacyRoutes, { prefix: 'candidacy' })
 }
