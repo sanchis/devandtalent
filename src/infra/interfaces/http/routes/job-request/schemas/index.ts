@@ -5,7 +5,7 @@ const commonProps: FastifySchema = {
   tags: ['Job-Request']
 }
 
-const jobRequestPropsSchema: unknown = {
+export const jobRequestPropsSchema: unknown = {
   id: {
     type: 'string'
   },
