@@ -10,5 +10,5 @@ const clientAdapter = clientTypeormRepository()
 const jobRequestAdapter = jobRequestRepository()
 
 export const userService = userSrv(userAdapter)
-export const jobRequestService = jobRequestSrv(jobRequestAdapter)
 export const clientService = clientSrv(clientAdapter)
+export const jobRequestService = jobRequestSrv(jobRequestAdapter, clientService)

@@ -8,17 +8,18 @@ export interface ClientServiceModel {
   updateClient: (id: string, client: ClientUpdate) => Promise<Client|undefined>
   createClient: (client: ClientCreate) => Promise<Client>
   findByIdClient: (id: string) => Promise<Client|undefined>
+  findByIdClientOrFail: (id: string) => Promise<Client|undefined>
   findAllClients: () => Promise<Client[]>
 }
 
 export default function UserService (adapter: ClientPort): ClientServiceModel {
   const deleteClient = async (id: string): Promise<void> => {
-    await findByIdClient(id)
+    await findByIdClientOrFail(id)
     return await adapter.delete(id)
   }
 
   async function updateClient (id: string, client: ClientUpdate): Promise<Client|undefined> {
-    await findByIdClient(id)
+    await findByIdClientOrFail(id)
     return await adapter.update(id, client)
   }
 
@@ -27,11 +28,15 @@ export default function UserService (adapter: ClientPort): ClientServiceModel {
   }
 
   const findByIdClient = async (id: string): Promise<Client|undefined> => {
+    return await adapter.findById(id)
+  }
+
+  const findByIdClientOrFail = async (id: string): Promise<Client|undefined> => {
     const clientExist = await adapter.findById(id)
     if (!clientExist) {
       throw new NotFoundError('Client not found')
     }
-    return await adapter.findById(id)
+    return clientExist
   }
 
   const findAllClients = async (): Promise<Client[]> => {
@@ -43,6 +48,7 @@ export default function UserService (adapter: ClientPort): ClientServiceModel {
     updateClient,
     createClient,
     findByIdClient,
+    findByIdClientOrFail,
     findAllClients
   }
 }

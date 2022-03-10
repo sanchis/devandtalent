@@ -8,17 +8,18 @@ export interface UserServiceModel {
   updateUser: (id: string, user: UserUpdate) => Promise<User|undefined>
   createUser: (user: UserCreate) => Promise<User>
   findByIdUser: (id: string) => Promise<User|undefined>
+  findByIdUserOrFail: (id: string) => Promise<User|undefined>
   findAllUsers: () => Promise<User[]>
 }
 
 export default function UserService (adapter: UserPort): UserServiceModel {
   const deleteUser = async (id: string): Promise<void> => {
-    await findByIdUser(id)
+    await findByIdUserOrFail(id)
     return await adapter.delete(id)
   }
 
   async function updateUser (id: string, user: UserUpdate): Promise<User|undefined> {
-    await findByIdUser(id)
+    await findByIdUserOrFail(id)
     return await adapter.update(id, user)
   }
 
@@ -27,11 +28,15 @@ export default function UserService (adapter: UserPort): UserServiceModel {
   }
 
   const findByIdUser = async (id: string): Promise<User|undefined> => {
+    return await adapter.findById(id)
+  }
+
+  const findByIdUserOrFail = async (id: string): Promise<User|undefined> => {
     const userExist = await adapter.findById(id)
     if (!userExist) {
       throw new NotFoundError('User not found')
     }
-    return await adapter.findById(id)
+    return userExist
   }
 
   const findAllUsers = async (): Promise<User[]> => {
@@ -43,6 +48,7 @@ export default function UserService (adapter: UserPort): UserServiceModel {
     updateUser,
     createUser,
     findByIdUser,
+    findByIdUserOrFail,
     findAllUsers
   }
 }
