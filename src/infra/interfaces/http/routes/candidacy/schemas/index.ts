@@ -8,7 +8,8 @@ const commonProps: FastifySchema = {
 
 export const candidacyPropsSchema: unknown = {
   id: {
-    type: 'string'
+    type: 'string',
+    format: 'uuid'
   },
   state: {
     type: 'string',

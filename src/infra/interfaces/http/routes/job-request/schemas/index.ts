@@ -7,7 +7,8 @@ const commonProps: FastifySchema = {
 
 export const jobRequestPropsSchema: unknown = {
   id: {
-    type: 'string'
+    type: 'string',
+    format: 'uuid'
   },
   job_function: {
     type: 'string'
@@ -20,9 +21,11 @@ export const jobRequestPropsSchema: unknown = {
 
 const updateCreateSchema: unknown = {
   job_function: {
+    format: 'uuid',
     type: 'string'
   },
   clientId: {
+    format: 'uuid',
     type: 'string'
   }
 }

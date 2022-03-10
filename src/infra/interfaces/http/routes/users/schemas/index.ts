@@ -6,7 +6,8 @@ const commonProps: FastifySchema = {
 
 export const userPropsSchema: unknown = {
   id: {
-    type: 'string'
+    type: 'string',
+    format: 'uuid'
   },
   name: {
     type: 'string'
