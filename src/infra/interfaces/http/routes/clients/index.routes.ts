@@ -18,7 +18,7 @@ export default async function (fastify: FastifyInstance): Promise<void> {
   fastify.get('/:id', { schema: findByIdSchema }, async (request: FastifyRequest<{
     Params: GetByIdParams
   }>, reply: FastifyReply) => {
-    const client = await clientService?.findByIdClient(request.params.id)
+    const client = await clientService?.findByIdClientOrFail(request.params.id)
     return await reply.send(client)
   })
 

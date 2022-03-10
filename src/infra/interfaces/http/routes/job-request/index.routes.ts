@@ -17,7 +17,7 @@ export default async function (fastify: FastifyInstance): Promise<void> {
   fastify.get('/:id', { schema: findByIdSchema }, async (request: FastifyRequest<{
     Params: GetByIdParams
   }>, reply: FastifyReply) => {
-    return await reply.send(await jobRequestService?.findByIdJobRequest(request.params.id))
+    return await reply.send(await jobRequestService?.findByIdJobRequestOrFail(request.params.id))
   })
 
   fastify.get('/', { schema: findAllSchema }, async (request: FastifyRequest, reply: FastifyReply) => {
