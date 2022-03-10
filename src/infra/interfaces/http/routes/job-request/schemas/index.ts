@@ -22,7 +22,7 @@ const updateCreateSchema: unknown = {
   job_function: {
     type: 'string'
   },
-  client: {
+  clientId: {
     type: 'string'
   }
 }
@@ -45,7 +45,7 @@ export const createSchema: FastifySchema = {
   body: {
     type: 'object',
     properties: updateCreateSchema,
-    required: ['job_function', 'client']
+    required: ['job_function', 'clientId']
   },
   response: {
     202: {
@@ -97,7 +97,7 @@ export const updateByIdSchema: FastifySchema = {
   body: {
     type: 'object',
     properties: updateCreateSchema,
-    required: ['job_function', 'client']
+    required: ['job_function', 'clientId']
   },
   params: {
     type: 'object',

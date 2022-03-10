@@ -7,7 +7,7 @@ export default function jobRequestRepository (): JobRequestPort {
   const repository = getRepository(JobRequestEntity)
 
   const findById = async (id: string): Promise<JobRequest|undefined> => {
-    return await repository.findOne(id, { relations: ['client'] })
+    return await repository.findOne(id)
   }
 
   const findAll = async (): Promise<JobRequest[]> => {
@@ -15,7 +15,12 @@ export default function jobRequestRepository (): JobRequestPort {
   }
 
   const create = async (jobRequest: JobRequestCreate): Promise<JobRequest | undefined> => {
-    const result = await repository.insert(jobRequest)
+    const { clientId, ...rest } = jobRequest
+    const jbRequest = repository.create({
+      ...rest,
+      client: { id: clientId }
+    })
+    const result = await repository.insert(jbRequest)
     const idCreated = result.identifiers.at(0)?.id
     return await findById(idCreated)
   }
@@ -25,9 +30,12 @@ export default function jobRequestRepository (): JobRequestPort {
   }
 
   const update = async (id: string, jobRequest: JobRequestUpdate): Promise<JobRequest | undefined> => {
-    await repository.update({
-      id
-    }, jobRequest)
+    const { clientId, ...rest } = jobRequest
+    const jbRequest = repository.create({
+      ...rest,
+      client: { id: clientId }
+    })
+    await repository.update({ id }, jbRequest)
     return await findById(id)
   }
 

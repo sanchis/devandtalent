@@ -16,7 +16,9 @@ export const JobRequestEntity = new EntitySchema<JobRequest>({
   relations: {
     client: {
       type: 'many-to-one',
-      target: 'client'
+      target: 'client',
+      nullable: false,
+      eager: true
     }
   }
 })
